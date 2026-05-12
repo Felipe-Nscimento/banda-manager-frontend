@@ -8,44 +8,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg-deep:       #050810;
-  --bg-base:       #080c18;
-  --bg-surface:    #0d1225;
-  --bg-elevated:   #111830;
-  --bg-hover:      #161f3a;
-  --border-subtle: rgba(255,255,255,0.05);
-  --border-soft:   rgba(255,255,255,0.09);
-  --border-medium: rgba(255,255,255,0.14);
-  --border-strong: rgba(255,255,255,0.22);
-  --text-primary:   #e8edf8;
-  --text-secondary: #7a85a3;
-  --text-muted:     #3d4560;
-  --text-inverse:   #050810;
-  --brand-blue:    #2d7cf6;
-  --brand-cyan:    #00c8e0;
-  --brand-light:   #60b8ff;
-  --brand-glow:    rgba(45,124,246,0.18);
-  --grad-brand:    linear-gradient(135deg, #2d7cf6, #00c8e0);
-  --grad-brand-v:  linear-gradient(180deg, #2d7cf6, #00c8e0);
-  --grad-glow:     radial-gradient(ellipse at 50% 0%, rgba(45,124,246,0.15) 0%, transparent 60%);
-  --success:    #22d07a; --success-bg: rgba(34,208,122,0.1);
-  --warning:    #f0b429; --warning-bg: rgba(240,180,41,0.1);
-  --danger:     #f05252; --danger-bg:  rgba(240,82,82,0.1);
-  --info:       #2d7cf6; --info-bg:    rgba(45,124,246,0.1);
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'Inter', sans-serif;
-  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px;
-  --radius-xl: 24px; --radius-full: 9999px;
-  --shadow-glow: 0 0 24px rgba(45,124,246,0.25);
-  --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
-  --transition: 0.18s ease;
+  --bg-base:#080c18;--bg-surface:#0d1225;--bg-elevated:#111830;--bg-hover:#161f3a;
+  --border-subtle:rgba(255,255,255,0.05);--border-soft:rgba(255,255,255,0.09);
+  --border-medium:rgba(255,255,255,0.14);--border-strong:rgba(255,255,255,0.22);
+  --text-primary:#e8edf8;--text-secondary:#7a85a3;--text-muted:#3d4560;
+  --brand-blue:#2d7cf6;--brand-cyan:#00c8e0;--brand-light:#60b8ff;
+  --brand-glow:rgba(45,124,246,0.18);
+  --grad-brand:linear-gradient(135deg,#2d7cf6,#00c8e0);
+  --grad-brand-v:linear-gradient(180deg,#2d7cf6,#00c8e0);
+  --grad-glow:radial-gradient(ellipse at 50% 0%,rgba(45,124,246,0.15) 0%,transparent 60%);
+  --success:#22d07a;--success-bg:rgba(34,208,122,0.1);
+  --warning:#f0b429;--warning-bg:rgba(240,180,41,0.1);
+  --danger:#f05252;--danger-bg:rgba(240,82,82,0.1);
+  --info-bg:rgba(45,124,246,0.1);
+  --font-display:'Syne',sans-serif;--font-body:'Inter',sans-serif;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;--radius-full:9999px;
+  --shadow-glow:0 0 24px rgba(45,124,246,0.25);--shadow-lg:0 8px 32px rgba(0,0,0,0.6);
+  --transition:0.18s ease;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:16px;scroll-behavior:smooth;}
+html{font-size:16px;}
 body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-primary);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radial-gradient(ellipse at 80% 80%,rgba(0,200,224,0.06) 0%,transparent 50%);pointer-events:none;z-index:0;}
 
-/* ── AUTH PAGES ── */
+/* AUTH */
 .auth-page{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--bg-base);}
 .auth-page::before{content:'';position:absolute;inset:0;background:var(--grad-glow),radial-gradient(ellipse at 80% 80%,rgba(0,200,224,0.06) 0%,transparent 50%);pointer-events:none;}
 .auth-box{position:relative;z-index:1;width:100%;max-width:420px;animation:fadeUp 0.3s ease;}
@@ -55,68 +41,70 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
 .auth-logo-sub{font-size:13px;color:var(--text-muted);margin-top:2px;}
 .auth-card{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:var(--radius-xl);padding:2rem;position:relative;overflow:hidden;}
 .auth-card::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:var(--grad-brand);opacity:0.5;}
-.auth-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
+.auth-title{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:4px;}
 .auth-subtitle{font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem;}
 .auth-footer{text-align:center;margin-top:1.25rem;font-size:13px;color:var(--text-secondary);}
 .auth-footer a{color:var(--brand-light);text-decoration:none;font-weight:500;cursor:pointer;}
 .auth-footer a:hover{color:var(--brand-cyan);}
-.auth-divider{display:flex;align-items:center;gap:12px;margin:1.25rem 0;color:var(--text-muted);font-size:12px;}
-.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border-subtle);}
 
-/* ── HEADER ── */
-.app-header{position:sticky;top:0;z-index:100;height:60px;background:rgba(8,12,24,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+/* HEADER */
+.app-header{position:sticky;top:0;z-index:100;height:60px;background:rgba(8,12,24,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;padding:0 1.5rem;gap:8px;}
+.logo{display:flex;align-items:center;gap:10px;}
 .logo-icon{width:34px;height:34px;border-radius:var(--radius-md);background:var(--grad-brand);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:var(--shadow-glow);flex-shrink:0;}
 .logo-text{font-family:var(--font-display);font-size:20px;font-weight:800;background:var(--grad-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;}
 .logo-sub{font-size:11px;color:var(--text-muted);display:none;}
-@media(min-width:600px){.logo-sub{display:block;}}
+@media(min-width:640px){.logo-sub{display:block;}}
 .nav{display:flex;gap:2px;margin-left:auto;align-items:center;}
-.nav-btn{background:none;border:none;color:var(--text-secondary);font-family:var(--font-body);font-size:13px;font-weight:500;padding:7px 14px;border-radius:var(--radius-md);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all var(--transition);white-space:nowrap;}
+.nav-btn{background:none;border:none;color:var(--text-secondary);font-family:var(--font-body);font-size:13px;font-weight:500;padding:7px 13px;border-radius:var(--radius-md);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all var(--transition);white-space:nowrap;}
 .nav-btn:hover{background:var(--bg-hover);color:var(--text-primary);}
 .nav-btn.active{background:var(--brand-glow);color:var(--brand-light);border:1px solid rgba(45,124,246,0.3);}
-.user-chip{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:var(--radius-full);background:var(--bg-elevated);border:1px solid var(--border-soft);cursor:default;margin-left:8px;}
-.user-chip-avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-brand);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
-.user-chip-name{font-size:12px;font-weight:500;color:var(--text-primary);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.btn-logout{background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;padding:5px 8px;border-radius:var(--radius-sm);transition:all var(--transition);}
+.nav-btn[data-hidden]{display:none;}
+.user-chip{display:flex;align-items:center;gap:8px;padding:4px 10px 4px 5px;border-radius:var(--radius-full);background:var(--bg-elevated);border:1px solid var(--border-soft);margin-left:8px;}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-brand);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;}
+.user-avatar img{width:100%;height:100%;object-fit:cover;}
+.user-name{font-size:12px;font-weight:500;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.nivel-badge-header{font-size:10px;padding:2px 7px;border-radius:var(--radius-full);font-weight:600;}
+.btn-logout{background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;padding:5px 8px;border-radius:var(--radius-sm);transition:all var(--transition);margin-left:4px;}
 .btn-logout:hover{color:var(--danger);background:var(--danger-bg);}
 
-/* ── LAYOUT ── */
-.container{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2rem 1.5rem;}
+/* LAYOUT */
+.container{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:2rem 1.5rem;}
 .section{display:none;animation:fadeUp 0.25s ease;}
 .section.active{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .page-header{margin-bottom:2rem;}
-.page-header h2{font-family:var(--font-display);font-size:clamp(22px,4vw,30px);font-weight:700;color:var(--text-primary);letter-spacing:-0.5px;line-height:1.2;}
+.page-header h2{font-family:var(--font-display);font-size:clamp(22px,4vw,28px);font-weight:700;letter-spacing:-0.5px;}
 .page-header p{font-size:13px;color:var(--text-secondary);margin-top:4px;}
 
-/* ── CARD ── */
+/* CARD */
 .card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden;transition:border-color var(--transition);}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(45,124,246,0.4),transparent);opacity:0;transition:opacity var(--transition);}
 .card:hover::before{opacity:1;}
 .card-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
 .card-label::after{content:'';flex:1;height:1px;background:var(--border-subtle);}
 
-/* ── FORM ── */
+/* FORM */
 .form-group{margin-bottom:1rem;}
 .form-label{display:block;font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:6px;letter-spacing:0.02em;}
 .form-input,.form-select{width:100%;background:var(--bg-elevated);border:1px solid var(--border-soft);border-radius:var(--radius-md);color:var(--text-primary);font-family:var(--font-body);font-size:14px;padding:10px 14px;outline:none;transition:all var(--transition);-webkit-appearance:none;appearance:none;}
 .form-input::placeholder{color:var(--text-muted);}
 .form-input:focus,.form-select:focus{border-color:var(--brand-blue);background:var(--bg-hover);box-shadow:0 0 0 3px rgba(45,124,246,0.12);}
-.form-input.error{border-color:var(--danger);box-shadow:0 0 0 3px rgba(240,82,82,0.12);}
-.form-error{font-size:12px;color:var(--danger);margin-top:5px;display:none;}
+.form-input.error{border-color:var(--danger);}
+.form-error{font-size:12px;color:var(--danger);margin-top:4px;display:none;}
 .form-error.show{display:block;}
 .form-select option{background:var(--bg-elevated);}
 .form-row{display:flex;gap:12px;flex-wrap:wrap;}
 .form-row .form-group{flex:1;min-width:140px;}
 .input-addon{display:flex;gap:8px;}
 .input-addon .form-input{flex:1;}
-.input-password{position:relative;}
-.input-password .form-input{padding-right:44px;}
-.btn-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:17px;padding:2px;transition:color var(--transition);}
+.input-pw{position:relative;}
+.input-pw .form-input{padding-right:42px;}
+.btn-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;transition:color var(--transition);}
 .btn-eye:hover{color:var(--text-primary);}
+.form-hint{font-size:11px;color:var(--text-muted);margin-top:4px;}
 
-/* ── BOTÕES ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font-body);font-size:13px;font-weight:500;padding:9px 18px;border-radius:var(--radius-md);cursor:pointer;border:none;transition:all var(--transition);white-space:nowrap;line-height:1;position:relative;overflow:hidden;}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-body);font-size:13px;font-weight:500;padding:9px 18px;border-radius:var(--radius-md);cursor:pointer;border:none;transition:all var(--transition);white-space:nowrap;line-height:1;}
 .btn:active{transform:scale(0.98);}
 .btn:disabled{opacity:0.4;cursor:not-allowed;pointer-events:none;}
 .btn-primary{background:var(--grad-brand);color:#fff;box-shadow:0 2px 12px rgba(45,124,246,0.35);font-weight:600;}
@@ -132,67 +120,68 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
 .btn-edit:hover{background:rgba(45,124,246,0.18);}
 .btn-sm{padding:5px 12px;font-size:12px;border-radius:var(--radius-sm);}
 
-/* ── BADGES ── */
+/* BADGES */
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:var(--radius-full);white-space:nowrap;}
-.badge-rm{cursor:pointer;opacity:0.5;font-size:14px;line-height:1;transition:opacity var(--transition);}
+.badge-rm{cursor:pointer;opacity:0.5;font-size:14px;line-height:1;}
 .badge-rm:hover{opacity:1;}
 .badges-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .badge-instrumento{background:rgba(45,124,246,0.12);color:var(--brand-light);border:1px solid rgba(45,124,246,0.2);}
 .badge-vocal{background:rgba(0,200,224,0.1);color:#4dd9ec;border:1px solid rgba(0,200,224,0.2);}
 .badge-outro{background:rgba(240,180,41,0.1);color:var(--warning);border:1px solid rgba(240,180,41,0.2);}
 
-/* ── DIVIDER ── */
-.divider{height:1px;background:var(--border-subtle);margin:1.5rem 0;}
+/* NIVEL BADGES */
+.nbadge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);text-transform:uppercase;letter-spacing:0.06em;}
+.nbadge-lider   {background:rgba(240,180,41,0.15);color:#f0b429;border:1px solid rgba(240,180,41,0.25);}
+.nbadge-gestor  {background:rgba(45,124,246,0.15);color:var(--brand-light);border:1px solid rgba(45,124,246,0.25);}
+.nbadge-ministro{background:rgba(0,200,224,0.12);color:#4dd9ec;border:1px solid rgba(0,200,224,0.2);}
+.nbadge-voluntario{background:rgba(255,255,255,0.06);color:var(--text-secondary);border:1px solid var(--border-soft);}
 
-/* ── EMPTY ── */
+/* DIVIDER / EMPTY / LOADING */
+.divider{height:1px;background:var(--border-subtle);margin:1.5rem 0;}
 .empty{text-align:center;padding:3rem 1rem;color:var(--text-muted);font-size:13px;border:1px dashed var(--border-subtle);border-radius:var(--radius-lg);}
 .empty-icon{font-size:32px;margin-bottom:10px;opacity:0.4;}
-
-/* ── LOADING ── */
 .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(45,124,246,0.2);border-top-color:var(--brand-blue);border-radius:50%;animation:spin 0.65s linear infinite;flex-shrink:0;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-state{display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:13px;padding:1.5rem 0;}
 
-/* ── MEMBER CARD ── */
-.member-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;transition:all var(--transition);position:relative;overflow:hidden;}
+/* MEMBER CARD */
+.member-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1rem 1.25rem;display:flex;align-items:center;gap:14px;margin-bottom:10px;transition:all var(--transition);position:relative;overflow:hidden;}
 .member-card:hover{border-color:var(--border-soft);background:var(--bg-elevated);}
 .member-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-brand-v);opacity:0;transition:opacity var(--transition);}
 .member-card:hover::before{opacity:1;}
 .avatar{width:46px;height:46px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--brand-blue);flex-shrink:0;overflow:hidden;position:relative;}
 .avatar img{width:100%;height:100%;object-fit:cover;}
-.avatar-ring{position:absolute;inset:-2px;border-radius:50%;background:var(--grad-brand);z-index:-1;opacity:0;transition:opacity var(--transition);}
-.member-card:hover .avatar{border-color:transparent;}
-.member-card:hover .avatar-ring{opacity:1;}
 .member-info{flex:1;min-width:0;}
-.member-name{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.member-name{font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.member-meta{font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:5px;}
+.member-meta span{display:flex;align-items:center;gap:4px;}
 .member-badges{display:flex;flex-wrap:wrap;gap:5px;}
-.member-actions{display:flex;gap:6px;flex-shrink:0;align-self:center;}
+.member-actions{display:flex;gap:6px;flex-shrink:0;}
 
-/* ── FOTO UPLOAD ── */
+/* FOTO */
 .foto-upload{border:1.5px dashed var(--border-medium);border-radius:var(--radius-lg);padding:1.25rem;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;background:var(--bg-elevated);}
 .foto-upload:hover{border-color:var(--brand-blue);background:var(--brand-glow);}
 .foto-upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.foto-upload-icon{font-size:26px;margin-bottom:6px;opacity:0.5;}
-.foto-upload-text{font-size:12px;color:var(--text-muted);}
-.foto-upload-hint{font-size:11px;color:var(--text-muted);margin-top:3px;opacity:0.6;}
-.foto-preview-img{width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 8px;display:block;border:2px solid var(--brand-blue);box-shadow:var(--shadow-glow);}
+.foto-preview-img{width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 8px;display:block;border:2px solid var(--brand-blue);}
+.foto-up-icon{font-size:24px;opacity:0.5;}
+.foto-up-text{font-size:12px;color:var(--text-muted);}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(5,8,16,0.8);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;animation:overlayIn 0.2s ease;}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,8,16,0.82);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;animation:overlayIn 0.2s ease;}
 @keyframes overlayIn{from{opacity:0}to{opacity:1}}
-.modal{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:var(--radius-xl);padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
+.modal{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:var(--radius-xl);padding:1.5rem;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;animation:modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);position:relative;}
 .modal::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:var(--grad-brand);opacity:0.5;}
 @keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
-.modal-title{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary);}
+.modal-title{font-family:var(--font-display);font-size:18px;font-weight:700;}
 .modal-close{background:var(--bg-elevated);border:1px solid var(--border-soft);color:var(--text-secondary);width:30px;height:30px;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all var(--transition);}
-.modal-close:hover{color:var(--text-primary);border-color:var(--border-medium);}
+.modal-close:hover{color:var(--text-primary);}
 .modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-subtle);}
 
-/* ── ESCALA ── */
+/* ESCALA */
 .slot-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-subtle);}
 .slot-row:last-child{border-bottom:none;}
-.slot-label{min-width:150px;}
+.slot-label{min-width:140px;}
 .escala-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:10px;transition:border-color var(--transition);position:relative;overflow:hidden;}
 .escala-card:hover{border-color:var(--border-soft);}
 .escala-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-brand);opacity:0;transition:opacity var(--transition);}
@@ -200,21 +189,24 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
 .escala-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap;}
 .escala-date{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--brand-light);}
 .escala-evento{font-size:12px;color:var(--text-secondary);background:var(--bg-elevated);border:1px solid var(--border-subtle);padding:3px 10px;border-radius:var(--radius-full);}
-.escala-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;}
+.escala-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:8px;}
 .escala-slot-item{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:9px 12px;display:flex;align-items:center;gap:10px;}
 .slot-avatar{width:30px;height:30px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--brand-blue);flex-shrink:0;overflow:hidden;}
 .slot-avatar img{width:100%;height:100%;object-fit:cover;}
 .slot-role{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:1px;}
-.slot-name{font-size:13px;font-weight:500;color:var(--text-primary);}
+.slot-name{font-size:13px;font-weight:500;}
+.escala-actions{display:flex;gap:6px;margin-left:auto;}
 
-/* ── SUBS ── */
+/* SUBS */
 .subs-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:10px;}
 .subs-role-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .subs-names{display:flex;flex-wrap:wrap;gap:6px;}
-.subs-name{font-size:12px;padding:4px 12px;border-radius:var(--radius-full);background:var(--bg-elevated);border:1px solid var(--border-soft);color:var(--text-primary);}
-.subs-none{font-size:13px;color:var(--text-muted);font-style:italic;}
+.subs-name{font-size:12px;padding:4px 12px;border-radius:var(--radius-full);background:var(--bg-elevated);border:1px solid var(--border-soft);}
 
-/* ── TOAST ── */
+/* READONLY BANNER */
+.readonly-banner{background:var(--warning-bg);border:1px solid rgba(240,180,41,0.2);border-radius:var(--radius-md);padding:10px 16px;font-size:13px;color:var(--warning);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+
+/* TOAST */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-elevated);border:1px solid var(--border-medium);color:var(--text-primary);font-size:13px;font-weight:500;padding:11px 20px;border-radius:var(--radius-full);z-index:999;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);white-space:nowrap;}
 .toast::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--brand-cyan);flex-shrink:0;}
 .toast.show{transform:translateX(-50%) translateY(0);}
@@ -223,20 +215,19 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg-base);}
 ::-webkit-scrollbar-thumb{background:var(--border-medium);border-radius:3px;}
-::-webkit-scrollbar-thumb:hover{background:var(--border-strong);}
 @media(max-width:600px){
   .container{padding:1rem;}
   .app-header{padding:0 1rem;}
-  .nav-btn span{display:none;}
+  .nav-btn span:last-child{display:none;}
   .member-actions{flex-direction:column;}
   .form-row{flex-direction:column;}
-  .user-chip-name{display:none;}
+  .user-name,.logo-sub{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ TELA DE LOGIN ═══════════════ -->
+<!-- LOGIN -->
 <div class="auth-page" id="page-login">
   <div class="auth-box">
     <div class="auth-logo">
@@ -245,615 +236,14 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
       <div class="auth-logo-sub">Gestão de músicos e ministérios</div>
     </div>
     <div class="auth-card">
-      <div class="auth-title">Entrar na conta</div>
-      <div class="auth-subtitle">Bem-vindo de volta! Faça login para continuar.</div>
-
+      <div class="auth-title">Entrar</div>
+      <div class="auth-subtitle">Faça login com as credenciais cadastradas pelo líder.</div>
       <div class="form-group">
         <label class="form-label">E-mail</label>
-        <input class="form-input" type="email" id="login-email" placeholder="seu@email.com" autocomplete="email"/>
-        <div class="form-error" id="login-email-err"></div>
+        <input class="form-input" type="email" id="l-email" placeholder="seu@email.com" autocomplete="email"/>
+        <div class="form-error" id="l-email-err"></div>
       </div>
       <div class="form-group">
         <label class="form-label">Senha</label>
-        <div class="input-password">
-          <input class="form-input" type="password" id="login-senha" placeholder="••••••••" autocomplete="current-password"/>
-          <button class="btn-eye" type="button" onclick="toggleSenha('login-senha',this)">👁</button>
-        </div>
-        <div class="form-error" id="login-senha-err"></div>
-      </div>
-      <div class="form-error" id="login-geral-err" style="margin-bottom:12px;display:none;background:var(--danger-bg);padding:10px 12px;border-radius:var(--radius-md);border:1px solid rgba(240,82,82,0.2);"></div>
-
-      <button class="btn btn-primary btn-full" id="btn-login" onclick="fazerLogin()">Entrar</button>
-
-      <div class="auth-footer" style="margin-top:1rem;">
-        Não tem conta? <a onclick="irParaCadastro()">Criar conta grátis</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ TELA DE CADASTRO ═══════════════ -->
-<div class="auth-page" id="page-cadastro" style="display:none">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <div class="auth-logo-icon">🎵</div>
-      <div class="auth-logo-text">Praizy</div>
-      <div class="auth-logo-sub">Gestão de músicos e ministérios</div>
-    </div>
-    <div class="auth-card">
-      <div class="auth-title">Criar sua conta</div>
-      <div class="auth-subtitle">Comece a gerenciar seu ministério agora.</div>
-
-      <div class="form-group">
-        <label class="form-label">Nome completo</label>
-        <input class="form-input" type="text" id="cad-nome" placeholder="Seu nome" autocomplete="name"/>
-        <div class="form-error" id="cad-nome-err"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">E-mail</label>
-        <input class="form-input" type="email" id="cad-email" placeholder="seu@email.com" autocomplete="email"/>
-        <div class="form-error" id="cad-email-err"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Senha</label>
-        <div class="input-password">
-          <input class="form-input" type="password" id="cad-senha" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
-          <button class="btn-eye" type="button" onclick="toggleSenha('cad-senha',this)">👁</button>
-        </div>
-        <div class="form-error" id="cad-senha-err"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Confirmar senha</label>
-        <div class="input-password">
-          <input class="form-input" type="password" id="cad-senha2" placeholder="Repita a senha" autocomplete="new-password"/>
-          <button class="btn-eye" type="button" onclick="toggleSenha('cad-senha2',this)">👁</button>
-        </div>
-        <div class="form-error" id="cad-senha2-err"></div>
-      </div>
-      <div class="form-error" id="cad-geral-err" style="margin-bottom:12px;display:none;background:var(--danger-bg);padding:10px 12px;border-radius:var(--radius-md);border:1px solid rgba(240,82,82,0.2);"></div>
-
-      <button class="btn btn-primary btn-full" id="btn-cadastro" onclick="fazerCadastro()">Criar conta</button>
-
-      <div class="auth-footer" style="margin-top:1rem;">
-        Já tem conta? <a onclick="irParaLogin()">Fazer login</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ APP PRINCIPAL ═══════════════ -->
-<div id="app" style="display:none">
-  <header class="app-header">
-    <div class="logo">
-      <div class="logo-icon">🎵</div>
-      <span class="logo-text">Praizy</span>
-      <span class="logo-sub">— gestão de músicos</span>
-    </div>
-    <nav class="nav">
-      <button class="nav-btn active" onclick="showTab('membros',this)"><span>👥</span><span>Membros</span></button>
-      <button class="nav-btn" onclick="showTab('escala',this)"><span>📅</span><span>Escalas</span></button>
-      <button class="nav-btn" onclick="showTab('subs',this)"><span>🔄</span><span>Substituições</span></button>
-      <div class="user-chip" id="user-chip">
-        <div class="user-chip-avatar" id="user-avatar">?</div>
-        <span class="user-chip-name" id="user-name">...</span>
-      </div>
-      <button class="btn-logout" onclick="fazerLogout()" title="Sair">Sair</button>
-    </nav>
-  </header>
-
-  <!-- MODAL EDITAR -->
-  <div class="modal-overlay" id="modal-editar" style="display:none" onclick="fecharModal(event)">
-    <div class="modal">
-      <div class="modal-header">
-        <div class="modal-title">Editar membro</div>
-        <button class="modal-close" onclick="fecharModalForce()">×</button>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Foto</label>
-        <div class="foto-upload" onclick="document.getElementById('edit-foto-input').click()">
-          <input type="file" id="edit-foto-input" accept="image/*" onchange="previewFoto('edit')" style="display:none"/>
-          <div id="edit-foto-wrap">
-            <div class="foto-upload-icon">📷</div>
-            <div class="foto-upload-text">Clique para trocar a foto</div>
-            <div class="foto-upload-hint">JPG, PNG • máx. 2MB</div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Nome completo</label>
-        <input class="form-input" type="text" id="edit-nome" placeholder="Nome do membro"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Função / Instrumento</label>
-        <div class="input-addon">
-          <input class="form-input" type="text" id="edit-funcao" placeholder="Ex: Guitarra, Vocal..."/>
-          <button class="btn btn-secondary" onclick="addFuncaoEdit()">+</button>
-        </div>
-        <div class="badges-row" id="edit-funcoes-tags"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-ghost" onclick="fecharModalForce()">Cancelar</button>
-        <button class="btn btn-primary" id="btn-salvar-edicao" onclick="salvarEdicao()">Salvar alterações</button>
-      </div>
-    </div>
-  </div>
-
-  <main class="container">
-
-    <!-- MEMBROS -->
-    <div id="tab-membros" class="section active">
-      <div class="page-header">
-        <h2>Membros da banda</h2>
-        <p>Cadastre cada músico com suas funções ou instrumentos.</p>
-      </div>
-      <div class="card">
-        <div class="card-label">Novo membro</div>
-        <div class="form-group">
-          <label class="form-label">Foto (opcional)</label>
-          <div class="foto-upload" onclick="document.getElementById('new-foto-input').click()">
-            <input type="file" id="new-foto-input" accept="image/*" onchange="previewFoto('new')" style="display:none"/>
-            <div id="new-foto-wrap">
-              <div class="foto-upload-icon">📷</div>
-              <div class="foto-upload-text">Clique para adicionar foto</div>
-              <div class="foto-upload-hint">JPG, PNG • máx. 2MB</div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nome completo</label>
-          <input class="form-input" type="text" id="m-nome" placeholder="Ex: João Silva"/>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Função / Instrumento</label>
-          <div class="input-addon">
-            <input class="form-input" type="text" id="m-funcao" placeholder="Ex: Guitarra, Vocal, Bateria..."/>
-            <button class="btn btn-secondary" onclick="addFuncaoTmp()">+ Adicionar</button>
-          </div>
-          <div class="badges-row" id="funcoes-tmp"></div>
-        </div>
-        <button class="btn btn-primary" id="btn-cadastrar" onclick="cadastrarMembro()">Cadastrar membro</button>
-      </div>
-      <div class="divider"></div>
-      <div id="lista-membros"><div class="loading-state"><span class="spinner"></span> Carregando...</div></div>
-    </div>
-
-    <!-- ESCALAS -->
-    <div id="tab-escala" class="section">
-      <div class="page-header">
-        <h2>Escalas</h2>
-        <p>Monte a escala da banda para cada data.</p>
-      </div>
-      <div class="card">
-        <div class="card-label">Nova escala</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Data</label>
-            <input class="form-input" type="date" id="e-data"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Evento (opcional)</label>
-            <input class="form-input" type="text" id="e-evento" placeholder="Ex: Culto, Show, Ensaio..."/>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div id="escala-slots"><div class="loading-state"><span class="spinner"></span> Carregando membros...</div></div>
-        <div style="margin-top:1.25rem">
-          <button class="btn btn-primary" id="btn-salvar-escala" onclick="salvarEscala()">Salvar escala</button>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div id="lista-escalas"><div class="loading-state"><span class="spinner"></span> Carregando...</div></div>
-    </div>
-
-    <!-- SUBSTITUIÇÕES -->
-    <div id="tab-subs" class="section">
-      <div class="page-header">
-        <h2>Substituições</h2>
-        <p>Veja quem pode substituir cada músico por instrumento ou função.</p>
-      </div>
-      <div class="card">
-        <div class="form-group" style="margin-bottom:0">
-          <label class="form-label">Selecione um membro</label>
-          <select class="form-select" id="subs-select" onchange="buscarSubs()">
-            <option value="">— Escolha um membro —</option>
-          </select>
-        </div>
-      </div>
-      <div id="subs-result"></div>
-      <div class="divider"></div>
-      <p style="font-size:11px;color:var(--text-muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Todos os possíveis substitutos por função</p>
-      <div id="all-subs"></div>
-    </div>
-
-  </main>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const API = 'https://louvor-manager-api.onrender.com';
-let membros = [];
-let funcoesTmp = [];
-let funcoesTmpEdit = [];
-let editandoId = null;
-let fotoBase64New = null;
-let fotoBase64Edit = null;
-let authToken = localStorage.getItem('praizy_token');
-let usuarioAtual = null;
-
-// ── UTILS ────────────────────────────────────────────────────
-function initials(n){return n.trim().split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?';}
-function getRoleCat(r){
-  const v=r.toLowerCase();
-  if(['voz','vocal','cantor','cantora','canto'].some(x=>v.includes(x))) return 'vocal';
-  const inst=['guitar','baixo','bateria','teclado','piano','sax','trompete','violino','viola','cello','flauta','pandeiro','percuss','violão','cavaquinho','zabumba','acordeon','contrabaixo','trombone','clarinete'];
-  if(inst.some(x=>v.includes(x))) return 'instrumento';
-  return 'outro';
-}
-function fmtDate(d){if(!d)return'';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`;}
-function toast(msg,isError=false){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.className='toast show'+(isError?' error':'');
-  clearTimeout(el._t);el._t=setTimeout(()=>el.className='toast',3000);
-}
-function toggleSenha(id,btn){
-  const inp=document.getElementById(id);
-  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
-  else{inp.type='password';btn.textContent='👁';}
-}
-function showErr(id,msg){
-  const el=document.getElementById(id);
-  if(!el) return;
-  el.textContent=msg;el.className='form-error'+(msg?' show':'');
-  const input=document.getElementById(id.replace('-err',''));
-  if(input) input.classList.toggle('error',!!msg);
-}
-function clearErrs(...ids){ids.forEach(id=>{showErr(id,'');});}
-
-async function apiCall(method,path,body=null,withAuth=true){
-  const headers={'Content-Type':'application/json'};
-  if(withAuth&&authToken) headers['Authorization']=`Bearer ${authToken}`;
-  const opts={method,headers};
-  if(body) opts.body=JSON.stringify(body);
-  const res=await fetch(API+path,opts);
-  if(res.status===401){logout();return null;}
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.detail||'Erro na requisição');}
-  if(res.status===204) return null;
-  return res.json();
-}
-
-// ── AUTH ─────────────────────────────────────────────────────
-function irParaCadastro(){
-  document.getElementById('page-login').style.display='none';
-  document.getElementById('page-cadastro').style.display='flex';
-  setTimeout(()=>document.getElementById('cad-nome').focus(),100);
-}
-function irParaLogin(){
-  document.getElementById('page-cadastro').style.display='none';
-  document.getElementById('page-login').style.display='flex';
-  setTimeout(()=>document.getElementById('login-email').focus(),100);
-}
-
-async function fazerLogin(){
-  const email=document.getElementById('login-email').value.trim();
-  const senha=document.getElementById('login-senha').value;
-  clearErrs('login-email-err','login-senha-err','login-geral-err');
-  let ok=true;
-  if(!email){showErr('login-email-err','Informe o e-mail');ok=false;}
-  if(!senha){showErr('login-senha-err','Informe a senha');ok=false;}
-  if(!ok) return;
-  const btn=document.getElementById('btn-login');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Entrando...';
-  try{
-    const data=await apiCall('POST','/auth/login',{email,senha},false);
-    authToken=data.token;
-    localStorage.setItem('praizy_token',authToken);
-    usuarioAtual=data.usuario;
-    entrarNoApp();
-  }catch(e){
-    const el=document.getElementById('login-geral-err');
-    el.textContent=e.message;el.style.display='block';
-  }
-  btn.disabled=false;btn.textContent='Entrar';
-}
-
-async function fazerCadastro(){
-  const nome=document.getElementById('cad-nome').value.trim();
-  const email=document.getElementById('cad-email').value.trim();
-  const senha=document.getElementById('cad-senha').value;
-  const senha2=document.getElementById('cad-senha2').value;
-  clearErrs('cad-nome-err','cad-email-err','cad-senha-err','cad-senha2-err','cad-geral-err');
-  let ok=true;
-  if(!nome){showErr('cad-nome-err','Informe seu nome');ok=false;}
-  if(!email){showErr('cad-email-err','Informe o e-mail');ok=false;}
-  if(!senha){showErr('cad-senha-err','Informe a senha');ok=false;}
-  else if(senha.length<6){showErr('cad-senha-err','Mínimo 6 caracteres');ok=false;}
-  if(!senha2){showErr('cad-senha2-err','Confirme a senha');ok=false;}
-  else if(senha!==senha2){showErr('cad-senha2-err','As senhas não coincidem');ok=false;}
-  if(!ok) return;
-  const btn=document.getElementById('btn-cadastro');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Criando conta...';
-  try{
-    const data=await apiCall('POST','/auth/cadastro',{nome,email,senha},false);
-    authToken=data.token;
-    localStorage.setItem('praizy_token',authToken);
-    usuarioAtual=data.usuario;
-    entrarNoApp();
-    toast('✓ Conta criada com sucesso!');
-  }catch(e){
-    const el=document.getElementById('cad-geral-err');
-    el.textContent=e.message;el.style.display='block';
-  }
-  btn.disabled=false;btn.textContent='Criar conta';
-}
-
-function entrarNoApp(){
-  document.getElementById('page-login').style.display='none';
-  document.getElementById('page-cadastro').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.getElementById('user-name').textContent=usuarioAtual.nome.split(' ')[0];
-  document.getElementById('user-avatar').textContent=initials(usuarioAtual.nome);
-  carregarMembros();
-}
-
-async function fazerLogout(){
-  try{await apiCall('POST','/auth/logout');}catch(e){}
-  authToken=null;usuarioAtual=null;
-  localStorage.removeItem('praizy_token');
-  document.getElementById('app').style.display='none';
-  document.getElementById('page-login').style.display='flex';
-  document.getElementById('login-email').value='';
-  document.getElementById('login-senha').value='';
-  membros=[];
-}
-
-function logout(){
-  authToken=null;localStorage.removeItem('praizy_token');
-  document.getElementById('app').style.display='none';
-  document.getElementById('page-login').style.display='flex';
-  membros=[];
-}
-
-async function verificarSessao(){
-  if(!authToken){document.getElementById('page-login').style.display='flex';return;}
-  try{
-    const data=await apiCall('GET','/auth/me');
-    if(data){usuarioAtual=data;entrarNoApp();}
-    else{document.getElementById('page-login').style.display='flex';}
-  }catch(e){document.getElementById('page-login').style.display='flex';}
-}
-
-// Tecla Enter nos forms
-document.getElementById('login-senha').addEventListener('keydown',e=>{if(e.key==='Enter') fazerLogin();});
-document.getElementById('login-email').addEventListener('keydown',e=>{if(e.key==='Enter') fazerLogin();});
-document.getElementById('cad-senha2').addEventListener('keydown',e=>{if(e.key==='Enter') fazerCadastro();});
-
-// ── TABS ─────────────────────────────────────────────────────
-function showTab(t,btn){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
-  btn.classList.add('active');
-  if(t==='escala'){carregarEscalas();renderEscalaSlots();}
-  if(t==='subs'){carregarSubs();}
-}
-
-// ── FOTO ─────────────────────────────────────────────────────
-function previewFoto(ctx){
-  const inp=document.getElementById(ctx+'-foto-input');const file=inp.files[0];if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const b64=e.target.result;
-    if(ctx==='new') fotoBase64New=b64; else fotoBase64Edit=b64;
-    document.getElementById(ctx+'-foto-wrap').innerHTML=`<img src="${b64}" class="foto-preview-img" alt="foto"/>`;
-  };
-  reader.readAsDataURL(file);
-}
-function resetFotoPreview(ctx,src){
-  const wrap=document.getElementById(ctx+'-foto-wrap');
-  if(src) wrap.innerHTML=`<img src="${src}" class="foto-preview-img" alt="foto"/>`;
-  else wrap.innerHTML=`<div class="foto-upload-icon">📷</div><div class="foto-upload-text">Clique para ${ctx==='new'?'adicionar':'trocar a'} foto</div><div class="foto-upload-hint">JPG, PNG • máx. 2MB</div>`;
-}
-
-// ── MEMBROS ──────────────────────────────────────────────────
-function addFuncaoTmp(){
-  const inp=document.getElementById('m-funcao');const v=inp.value.trim();
-  if(!v) return;if(!funcoesTmp.includes(v)) funcoesTmp.push(v);
-  inp.value='';inp.focus();renderFuncoesTmp();
-}
-document.getElementById('m-funcao').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addFuncaoTmp();}});
-function renderFuncoesTmp(){
-  document.getElementById('funcoes-tmp').innerHTML=
-    funcoesTmp.map((f,i)=>`<span class="badge badge-${getRoleCat(f)}">${f}<span class="badge-rm" onclick="remFuncaoTmp(${i})">×</span></span>`).join('');
-}
-function remFuncaoTmp(i){funcoesTmp.splice(i,1);renderFuncoesTmp();}
-
-async function cadastrarMembro(){
-  const nome=document.getElementById('m-nome').value.trim();
-  const fInp=document.getElementById('m-funcao').value.trim();
-  if(fInp&&!funcoesTmp.includes(fInp)){funcoesTmp.push(fInp);document.getElementById('m-funcao').value='';}
-  if(!nome){toast('Informe o nome do membro.',true);return;}
-  if(!funcoesTmp.length){toast('Adicione ao menos uma função.',true);return;}
-  const btn=document.getElementById('btn-cadastrar');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
-  try{
-    await apiCall('POST','/membros',{nome,funcoes:[...funcoesTmp],foto:fotoBase64New});
-    funcoesTmp=[];fotoBase64New=null;renderFuncoesTmp();
-    resetFotoPreview('new',null);
-    document.getElementById('m-nome').value='';
-    document.getElementById('new-foto-input').value='';
-    toast('✓ Membro cadastrado!');await carregarMembros();
-  }catch(e){toast(e.message,true);}
-  btn.disabled=false;btn.textContent='Cadastrar membro';
-}
-
-async function carregarMembros(){
-  try{membros=await apiCall('GET','/membros');renderMembros();atualizarSubsSelect();}
-  catch(e){document.getElementById('lista-membros').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div>Erro ao carregar.</div>';}
-}
-
-function renderMembros(){
-  const el=document.getElementById('lista-membros');
-  if(!membros||!membros.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Nenhum membro cadastrado ainda.</div>';return;}
-  el.innerHTML=membros.map(m=>`
-    <div class="member-card">
-      <div class="avatar"><div class="avatar-ring"></div>${m.foto?`<img src="${m.foto}" alt="${m.nome}"/>`:`${initials(m.nome)}`}</div>
-      <div class="member-info">
-        <div class="member-name">${m.nome}</div>
-        <div class="member-badges">${m.funcoes.map(f=>`<span class="badge badge-${getRoleCat(f)}">${f}</span>`).join('')}</div>
-      </div>
-      <div class="member-actions">
-        <button class="btn btn-edit btn-sm" onclick="abrirEditar(${m.id})">✏️ Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="deletarMembro(${m.id})">Remover</button>
-      </div>
-    </div>`).join('');
-}
-
-async function deletarMembro(id){
-  if(!confirm('Remover este membro?')) return;
-  try{await apiCall('DELETE',`/membros/${id}`);toast('Membro removido.');await carregarMembros();}
-  catch(e){toast(e.message,true);}
-}
-
-function abrirEditar(id){
-  const m=membros.find(x=>x.id===id);if(!m) return;
-  editandoId=id;funcoesTmpEdit=[...m.funcoes];fotoBase64Edit=null;
-  document.getElementById('edit-nome').value=m.nome;
-  resetFotoPreview('edit',m.foto||null);
-  document.getElementById('edit-foto-input').value='';
-  renderFuncoesEdit();
-  document.getElementById('modal-editar').style.display='flex';
-}
-function fecharModal(e){if(e.target===document.getElementById('modal-editar')) fecharModalForce();}
-function fecharModalForce(){document.getElementById('modal-editar').style.display='none';editandoId=null;funcoesTmpEdit=[];fotoBase64Edit=null;}
-function addFuncaoEdit(){
-  const inp=document.getElementById('edit-funcao');const v=inp.value.trim();
-  if(!v) return;if(!funcoesTmpEdit.includes(v)) funcoesTmpEdit.push(v);
-  inp.value='';inp.focus();renderFuncoesEdit();
-}
-document.getElementById('edit-funcao').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addFuncaoEdit();}});
-function renderFuncoesEdit(){
-  document.getElementById('edit-funcoes-tags').innerHTML=
-    funcoesTmpEdit.map((f,i)=>`<span class="badge badge-${getRoleCat(f)}">${f}<span class="badge-rm" onclick="remFuncaoEdit(${i})">×</span></span>`).join('');
-}
-function remFuncaoEdit(i){funcoesTmpEdit.splice(i,1);renderFuncoesEdit();}
-async function salvarEdicao(){
-  const fInp=document.getElementById('edit-funcao').value.trim();
-  if(fInp&&!funcoesTmpEdit.includes(fInp)){funcoesTmpEdit.push(fInp);document.getElementById('edit-funcao').value='';}
-  const nome=document.getElementById('edit-nome').value.trim();
-  if(!nome){toast('Informe o nome.',true);return;}
-  if(!funcoesTmpEdit.length){toast('Adicione ao menos uma função.',true);return;}
-  const btn=document.getElementById('btn-salvar-edicao');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
-  try{
-    const payload={nome,funcoes:[...funcoesTmpEdit]};
-    if(fotoBase64Edit) payload.foto=fotoBase64Edit;
-    await apiCall('PUT',`/membros/${editandoId}`,payload);
-    toast('✓ Membro atualizado!');fecharModalForce();await carregarMembros();
-  }catch(e){toast(e.message,true);}
-  btn.disabled=false;btn.textContent='Salvar alterações';
-}
-
-// ── ESCALAS ──────────────────────────────────────────────────
-function getAllFuncoes(){const s=new Set();membros.forEach(m=>m.funcoes.forEach(f=>s.add(f)));return[...s].sort();}
-function getMembrosComFuncao(f){return membros.filter(m=>m.funcoes.includes(f));}
-function renderEscalaSlots(){
-  const el=document.getElementById('escala-slots');
-  if(!membros.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Cadastre membros primeiro.</div>';return;}
-  el.innerHTML=getAllFuncoes().map(f=>`
-    <div class="slot-row">
-      <div class="slot-label"><span class="badge badge-${getRoleCat(f)}" style="font-size:11px">${f}</span></div>
-      <select class="form-select" data-funcao="${f}" style="flex:1">
-        <option value="">— Não escalar —</option>
-        ${getMembrosComFuncao(f).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('')}
-      </select>
-    </div>`).join('');
-}
-async function salvarEscala(){
-  const data=document.getElementById('e-data').value;
-  const evento=document.getElementById('e-evento').value.trim();
-  if(!data){toast('Informe a data.',true);return;}
-  const slots=[];
-  document.querySelectorAll('#escala-slots select').forEach(sel=>{
-    if(sel.value) slots.push({membro_id:parseInt(sel.value),funcao:sel.dataset.funcao});
-  });
-  if(!slots.length){toast('Escale ao menos um membro.',true);return;}
-  const btn=document.getElementById('btn-salvar-escala');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
-  try{
-    await apiCall('POST','/escalas',{data,evento,slots});
-    document.getElementById('e-data').value='';document.getElementById('e-evento').value='';
-    renderEscalaSlots();toast('✓ Escala salva!');await carregarEscalas();
-  }catch(e){toast(e.message,true);}
-  btn.disabled=false;btn.textContent='Salvar escala';
-}
-async function carregarEscalas(){
-  const el=document.getElementById('lista-escalas');
-  try{
-    const escalas=await apiCall('GET','/escalas');
-    if(!escalas||!escalas.length){el.innerHTML='<div class="empty"><div class="empty-icon">📅</div>Nenhuma escala salva ainda.</div>';return;}
-    el.innerHTML=escalas.map(e=>`
-      <div class="escala-card">
-        <div class="escala-head">
-          <span class="escala-date">${fmtDate(e.data)}</span>
-          ${e.evento?`<span class="escala-evento">${e.evento}</span>`:''}
-          <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="deletarEscala(${e.id})">Remover</button>
-        </div>
-        <div class="escala-grid">
-          ${e.slots.map(s=>`
-            <div class="escala-slot-item">
-              <div class="slot-avatar">${s.membro_foto?`<img src="${s.membro_foto}" alt=""/>`:initials(s.membro_nome||'?')}</div>
-              <div><div class="slot-role">${s.funcao}</div><div class="slot-name">${s.membro_nome||'—'}</div></div>
-            </div>`).join('')}
-        </div>
-      </div>`).join('');
-  }catch(e){el.innerHTML='<div class="empty"><div class="empty-icon">⚠️</div>Erro ao carregar.</div>';}
-}
-async function deletarEscala(id){
-  if(!confirm('Remover esta escala?')) return;
-  try{await apiCall('DELETE',`/escalas/${id}`);toast('Escala removida.');await carregarEscalas();}
-  catch(e){toast(e.message,true);}
-}
-
-// ── SUBSTITUIÇÕES ─────────────────────────────────────────────
-function atualizarSubsSelect(){
-  const sel=document.getElementById('subs-select');const cur=sel.value;
-  sel.innerHTML='<option value="">— Escolha um membro —</option>'+
-    membros.map(m=>`<option value="${m.id}" ${m.id==cur?'selected':''}>${m.nome}</option>`).join('');
-}
-async function buscarSubs(){
-  const id=document.getElementById('subs-select').value;
-  const el=document.getElementById('subs-result');
-  if(!id){el.innerHTML='';return;}
-  el.innerHTML='<div class="loading-state"><span class="spinner"></span> Buscando...</div>';
-  try{
-    const data=await apiCall('GET',`/substitutos/${id}`);
-    el.innerHTML=data.map(item=>`
-      <div class="subs-card">
-        <div class="subs-role-head"><span class="badge badge-${getRoleCat(item.funcao)}" style="font-size:11px">${item.funcao}</span></div>
-        <div class="subs-names">
-          ${item.substitutos.length?item.substitutos.map(s=>`<span class="subs-name">${s.nome}</span>`).join(''):'<span class="subs-none">Nenhum substituto disponível</span>'}
-        </div>
-      </div>`).join('');
-  }catch(e){el.innerHTML='<div class="empty">Erro ao buscar.</div>';}
-}
-async function carregarSubs(){
-  atualizarSubsSelect();
-  const el=document.getElementById('all-subs');
-  const funcoes=getAllFuncoes();
-  const grupos=funcoes.filter(f=>getMembrosComFuncao(f).length>1);
-  if(!grupos.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔄</div>Nenhuma função tem mais de um músico.</div>';return;}
-  el.innerHTML=grupos.map(f=>{
-    const ms=getMembrosComFuncao(f);
-    return`<div class="subs-card">
-      <div class="subs-role-head"><span class="badge badge-${getRoleCat(f)}" style="font-size:11px">${f}</span><span style="font-size:11px;color:var(--text-muted)">${ms.length} músicos</span></div>
-      <div class="subs-names">${ms.map(m=>`<span class="subs-name">${m.nome}</span>`).join('')}</div>
-    </div>`;
-  }).join('');
-}
-
-// ── INIT ─────────────────────────────────────────────────────
-verificarSessao();
-</script>
-</body>
-</html>
+        <div class="input-pw">
+          <input class="form-input" type="password" id="l-senha" placeholder="••••••••
