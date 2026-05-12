@@ -218,4 +218,853 @@ body::before{content:'';position:fixed;inset:0;background:var(--grad-glow),radia
 .subs-name{font-size:12px;padding:4px 12px;border-radius:var(--radius-full);background:var(--bg-elevated);border:1px solid var(--border-soft);}
 
 /* TOAST */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-elevated);border:1px solid var(--border-medium);color:var(--text-primary);font-size:13px;font-weight:500;padding:11px 20px;border-radius:var(--radius-full);z-index:999;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);pointer-ev
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-elevated);border:1px solid var(--border-medium);color:var(--text-primary);font-size:13px;font-weight:500;padding:11px 20px;border-radius:var(--radius-full);z-index:999;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);white-space:nowrap;}
+.toast::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--brand-cyan);flex-shrink:0;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.error::before{background:var(--danger);}
+.toast.error{border-color:rgba(240,82,82,0.3);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg-base);}
+::-webkit-scrollbar-thumb{background:var(--border-medium);border-radius:3px;}
+@media(max-width:600px){
+  .container{padding:1rem;}
+  .app-header{padding:0 1rem;}
+  .nav-btn span:last-child{display:none;}
+  .member-actions{flex-direction:column;}
+  .form-row{flex-direction:column;}
+  .user-nm{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOGIN ══════════ -->
+<div class="auth-page" id="page-login">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🎵</div>
+      <div class="auth-logo-text">Praizy</div>
+      <div class="auth-logo-sub">Gestão de músicos e ministérios</div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-title">Entrar</div>
+      <div class="auth-subtitle">Acesse com as credenciais cadastradas pelo seu gestor.</div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input class="form-input" type="email" id="l-email" placeholder="seu@email.com" autocomplete="email"/>
+        <div class="form-error" id="l-email-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <div class="input-pw">
+          <input class="form-input" type="password" id="l-senha" placeholder="••••••••" autocomplete="current-password"/>
+          <button class="btn-eye" type="button" onclick="togglePw('l-senha',this)">👁</button>
+        </div>
+        <div class="form-error" id="l-senha-err"></div>
+      </div>
+      <div class="form-error" id="l-geral" style="display:none;margin-bottom:12px;background:var(--danger-bg);padding:10px 12px;border-radius:var(--radius-md);border:1px solid rgba(240,82,82,0.2);"></div>
+      <button class="btn btn-primary btn-full" id="btn-login" onclick="fazerLogin()">Entrar</button>
+      <div class="auth-footer">
+        Gestor de um novo ministério? <a onclick="irParaCadastro()">Cadastrar minha igreja</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CADASTRO DE IGREJA ══════════ -->
+<div class="auth-page" id="page-cadastro" style="display:none">
+  <div class="auth-box" style="max-width:500px">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🎵</div>
+      <div class="auth-logo-text">Praizy</div>
+      <div class="auth-logo-sub">Cadastro de novo ministério</div>
+    </div>
+    <div class="auth-card" id="cad-form-wrap">
+      <div class="auth-title">Cadastrar minha igreja</div>
+      <div class="auth-subtitle">Preencha os dados. Após análise, você receberá acesso em até 24h.</div>
+
+      <div class="auth-section-label">Dados da Igreja / Instituição</div>
+
+      <div class="form-group">
+        <label class="form-label">Logo (opcional)</label>
+        <div class="logo-upload" onclick="document.getElementById('cad-logo-input').click()">
+          <input type="file" id="cad-logo-input" accept="image/*" onchange="previewLogo()" style="display:none"/>
+          <div id="cad-logo-wrap">
+            <div style="font-size:28px;opacity:0.4">⛪</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Clique para adicionar logo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nome da Igreja / Instituição *</label>
+        <input class="form-input" type="text" id="cad-igreja-nome" placeholder="Ex: Igreja Batista Central"/>
+        <div class="form-error" id="cad-igreja-nome-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Endereço *</label>
+        <input class="form-input" type="text" id="cad-igreja-end" placeholder="Rua, número, bairro, cidade"/>
+        <div class="form-error" id="cad-igreja-end-err"></div>
+      </div>
+
+      <div class="auth-section-label">Dados do Gestor Responsável</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Seu nome completo *</label>
+          <input class="form-input" type="text" id="cad-nome" placeholder="Nome do gestor"/>
+          <div class="form-error" id="cad-nome-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mail *</label>
+          <input class="form-input" type="email" id="cad-email" placeholder="seu@email.com"/>
+          <div class="form-error" id="cad-email-err"></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Senha *</label>
+          <div class="input-pw">
+            <input class="form-input" type="password" id="cad-senha" placeholder="Mín. 6 caracteres"/>
+            <button class="btn-eye" type="button" onclick="togglePw('cad-senha',this)">👁</button>
+          </div>
+          <div class="form-error" id="cad-senha-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar senha *</label>
+          <div class="input-pw">
+            <input class="form-input" type="password" id="cad-senha2" placeholder="Repita a senha"/>
+            <button class="btn-eye" type="button" onclick="togglePw('cad-senha2',this)">👁</button>
+          </div>
+          <div class="form-error" id="cad-senha2-err"></div>
+        </div>
+      </div>
+
+      <div class="form-error" id="cad-geral" style="display:none;margin-bottom:12px;background:var(--danger-bg);padding:10px 12px;border-radius:var(--radius-md);border:1px solid rgba(240,82,82,0.2);"></div>
+      <button class="btn btn-primary btn-full" id="btn-solicitar" onclick="solicitarCadastro()">Enviar solicitação</button>
+      <div class="auth-footer">Já tem conta? <a onclick="irParaLogin()">Fazer login</a></div>
+    </div>
+
+    <!-- Tela de sucesso -->
+    <div class="auth-card" id="cad-sucesso-wrap" style="display:none">
+      <div class="success-box">
+        <div class="success-icon">🎉</div>
+        <h3>Solicitação enviada!</h3>
+        <p>Recebemos o cadastro da sua igreja. Nossa equipe irá analisar e aprovar em breve.<br><br>Você será notificado quando o acesso estiver liberado.</p>
+      </div>
+      <div class="auth-footer" style="margin-top:1.5rem">
+        <a onclick="irParaLogin()">← Voltar para o login</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ APP ══════════ -->
+<div id="app" style="display:none">
+  <header class="app-header">
+    <div class="logo">
+      <div class="logo-icon">🎵</div>
+      <span class="logo-text">Praizy</span>
+      <span class="logo-church" id="header-church-name"></span>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showTab('integrantes',this)"><span>👥</span><span>Integrantes</span></button>
+      <button class="nav-btn" onclick="showTab('escala',this)"><span>📅</span><span>Escalas</span></button>
+      <button class="nav-btn" onclick="showTab('subs',this)"><span>🔄</span><span>Substituições</span></button>
+      <button class="nav-btn" id="nav-igreja" onclick="showTab('igreja',this)" style="display:none"><span>⛪</span><span>Igreja</span></button>
+      <div class="user-chip">
+        <div class="user-av" id="u-av">?</div>
+        <span class="user-nm" id="u-nm">...</span>
+        <span class="nbadge" id="u-nivel"></span>
+      </div>
+      <button class="btn-logout" onclick="fazerLogout()" title="Sair">Sair</button>
+    </nav>
+  </header>
+
+  <!-- Modal Integrante -->
+  <div class="modal-overlay" id="modal-int" style="display:none" onclick="fechaModalInt(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-int-titulo">Novo integrante</div>
+        <button class="modal-close" onclick="fechaModalIntF()">×</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Foto (opcional)</label>
+        <div class="foto-upload" onclick="document.getElementById('int-foto-inp').click()">
+          <input type="file" id="int-foto-inp" accept="image/*" onchange="previewFotoInt()" style="display:none"/>
+          <div id="int-foto-wrap">
+            <div style="font-size:24px;opacity:0.4">📷</div>
+            <div style="font-size:12px;color:var(--text-muted)">Clique para adicionar foto</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nome *</label>
+          <input class="form-input" type="text" id="int-nome" placeholder="Nome completo"/>
+          <div class="form-error" id="int-nome-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nível *</label>
+          <select class="form-select" id="int-nivel">
+            <option value="voluntario">🎵 Voluntário</option>
+            <option value="ministro">🎤 Ministro</option>
+            <option value="gestor">⚙️ Gestor</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">E-mail * <span style="color:var(--text-muted);font-weight:400">(login)</span></label>
+          <input class="form-input" type="email" id="int-email" placeholder="email@exemplo.com"/>
+          <div class="form-error" id="int-email-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp</label>
+          <input class="form-input" type="text" id="int-whatsapp" placeholder="(11) 99999-9999"/>
+          <div class="form-hint">Receberá notificação quando escalado.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Senha * <span id="int-senha-hint" style="color:var(--text-muted);font-weight:400"></span></label>
+          <div class="input-pw">
+            <input class="form-input" type="password" id="int-senha" placeholder="Senha de acesso"/>
+            <button class="btn-eye" type="button" onclick="togglePw('int-senha',this)">👁</button>
+          </div>
+          <div class="form-error" id="int-senha-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar senha *</label>
+          <div class="input-pw">
+            <input class="form-input" type="password" id="int-senha2" placeholder="Repita"/>
+            <button class="btn-eye" type="button" onclick="togglePw('int-senha2',this)">👁</button>
+          </div>
+          <div class="form-error" id="int-senha2-err"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Funções / Instrumentos</label>
+        <div class="input-addon">
+          <input class="form-input" type="text" id="int-funcao" placeholder="Ex: Guitarra, Vocal..."/>
+          <button class="btn btn-secondary" onclick="addFuncaoInt()">+ Add</button>
+        </div>
+        <div class="badges-row" id="int-funcoes-tags"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="fechaModalIntF()">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-int" onclick="salvarInt()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Escala -->
+  <div class="modal-overlay" id="modal-esc" style="display:none" onclick="fechaModalEsc(event)">
+    <div class="modal" style="max-width:600px">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-esc-titulo">Nova escala</div>
+        <button class="modal-close" onclick="fechaModalEscF()">×</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Data *</label>
+          <input class="form-input" type="date" id="esc-data"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Evento (opcional)</label>
+          <input class="form-input" type="text" id="esc-evento" placeholder="Ex: Culto, Show..."/>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div id="esc-slots-wrap"><div class="loading-state"><span class="spinner"></span> Carregando...</div></div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="fechaModalEscF()">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-esc" onclick="salvarEscala()">Salvar escala</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- INTEGRANTES -->
+    <div id="tab-integrantes" class="section active">
+      <div class="page-header">
+        <div class="page-header-text">
+          <h2>Integrantes</h2>
+          <p>Músicos e colaboradores do ministério.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-novo-int" onclick="abreModalNovoInt()" style="display:none">+ Novo integrante</button>
+      </div>
+      <div id="readonly-int" style="display:none"><div class="readonly-banner">⚠️ Você tem acesso somente de visualização nesta seção.</div></div>
+      <div id="lista-int"><div class="loading-state"><span class="spinner"></span> Carregando...</div></div>
+    </div>
+
+    <!-- ESCALAS -->
+    <div id="tab-escala" class="section">
+      <div class="page-header">
+        <div class="page-header-text">
+          <h2>Escalas</h2>
+          <p>Escala do ministério por data.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-nova-esc" onclick="abreModalNovaEsc()" style="display:none">+ Nova escala</button>
+      </div>
+      <div id="readonly-esc" style="display:none"><div class="readonly-banner">⚠️ Você tem acesso somente de visualização.</div></div>
+      <div id="lista-esc"><div class="loading-state"><span class="spinner"></span> Carregando...</div></div>
+    </div>
+
+    <!-- SUBSTITUIÇÕES -->
+    <div id="tab-subs" class="section">
+      <div class="page-header">
+        <div class="page-header-text">
+          <h2>Substituições</h2>
+          <p>Quem pode substituir cada integrante.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Selecione um integrante</label>
+          <select class="form-select" id="subs-select" onchange="buscarSubs()">
+            <option value="">— Escolha —</option>
+          </select>
+        </div>
+      </div>
+      <div id="subs-result"></div>
+      <div class="divider"></div>
+      <p style="font-size:11px;color:var(--text-muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Todos os substitutos por função</p>
+      <div id="all-subs"></div>
+    </div>
+
+    <!-- IGREJA -->
+    <div id="tab-igreja" class="section">
+      <div class="page-header">
+        <div class="page-header-text">
+          <h2>Minha Igreja</h2>
+          <p>Informações e configurações do ministério.</p>
+        </div>
+      </div>
+      <div class="card" id="igreja-info-card">
+        <div class="loading-state"><span class="spinner"></span> Carregando...</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://louvor-manager-api.onrender.com';
+let integrantes=[], eu=null, minhaIgreja=null;
+let token=localStorage.getItem('praizy_token');
+let editandoIntId=null, editandoEscId=null;
+let funcoesTmpInt=[], fotoBase64Int=null, logoBase64Cad=null;
+
+// ── UTILS ──────────────────────────────────────────────────────
+const ini=n=>n.trim().split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?';
+function rc(r){
+  const v=r.toLowerCase();
+  if(['voz','vocal','cantor','cantora','canto'].some(x=>v.includes(x)))return'vocal';
+  if(['guitar','baixo','bateria','teclado','piano','sax','trompete','violino','viola','cello','flauta','pandeiro','percuss','violão','cavaquinho','zabumba','acordeon','contrabaixo','trombone','clarinete'].some(x=>v.includes(x)))return'instrumento';
+  return'outro';
+}
+function fmtD(d){if(!d)return'';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`;}
+function toast(msg,err=false){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className='toast show'+(err?' error':'');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.className='toast',3500);
+}
+function togglePw(id,btn){
+  const i=document.getElementById(id);
+  i.type=i.type==='password'?'text':'password';
+  btn.textContent=i.type==='password'?'👁':'🙈';
+}
+function showErr(id,msg){
+  const el=document.getElementById(id);if(!el)return;
+  el.textContent=msg;el.className='form-error'+(msg?' show':'');
+  const i=document.getElementById(id.replace('-err',''));
+  if(i)i.classList.toggle('error',!!msg);
+}
+function clrErrs(...ids){ids.forEach(id=>showErr(id,''));}
+
+async function api(method,path,body=null){
+  const h={'Content-Type':'application/json'};
+  if(token)h['Authorization']=`Bearer ${token}`;
+  const opts={method,headers:h};
+  if(body)opts.body=JSON.stringify(body);
+  const res=await fetch(API+path,opts);
+  if(res.status===401){doLogout();return null;}
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.detail||'Erro');}
+  if(res.status===204)return null;
+  return res.json();
+}
+
+const podeGerInt=()=>eu&&eu.nivel==='gestor';
+const podeCriarEsc=()=>eu&&eu.nivel==='gestor';
+const podeEditarEsc=()=>eu&&['gestor','ministro'].includes(eu.nivel);
+function nivelLabel(n){return{gestor:'Gestor',ministro:'Ministro',voluntario:'Voluntário'}[n]||n;}
+function nivelClass(n){return{gestor:'nbadge-gestor',ministro:'nbadge-ministro',voluntario:'nbadge-voluntario'}[n]||'nbadge-voluntario';}
+
+// ── AUTH PAGES ─────────────────────────────────────────────────
+function irParaCadastro(){
+  document.getElementById('page-login').style.display='none';
+  document.getElementById('page-cadastro').style.display='flex';
+}
+function irParaLogin(){
+  document.getElementById('page-cadastro').style.display='none';
+  document.getElementById('page-login').style.display='flex';
+}
+
+function previewLogo(){
+  const f=document.getElementById('cad-logo-input').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    logoBase64Cad=e.target.result;
+    document.getElementById('cad-logo-wrap').innerHTML=`<img src="${logoBase64Cad}" class="logo-preview" alt="logo"/>`;
+  };r.readAsDataURL(f);
+}
+
+async function solicitarCadastro(){
+  const iNome=document.getElementById('cad-igreja-nome').value.trim();
+  const iEnd=document.getElementById('cad-igreja-end').value.trim();
+  const nome=document.getElementById('cad-nome').value.trim();
+  const email=document.getElementById('cad-email').value.trim();
+  const senha=document.getElementById('cad-senha').value;
+  const senha2=document.getElementById('cad-senha2').value;
+  clrErrs('cad-igreja-nome-err','cad-igreja-end-err','cad-nome-err','cad-email-err','cad-senha-err','cad-senha2-err');
+  document.getElementById('cad-geral').style.display='none';
+  let ok=true;
+  if(!iNome){showErr('cad-igreja-nome-err','Informe o nome da igreja');ok=false;}
+  if(!iEnd){showErr('cad-igreja-end-err','Informe o endereço');ok=false;}
+  if(!nome){showErr('cad-nome-err','Informe seu nome');ok=false;}
+  if(!email||!email.includes('@')){showErr('cad-email-err','E-mail inválido');ok=false;}
+  if(!senha||senha.length<6){showErr('cad-senha-err','Mínimo 6 caracteres');ok=false;}
+  if(senha!==senha2){showErr('cad-senha2-err','Senhas não coincidem');ok=false;}
+  if(!ok)return;
+  const btn=document.getElementById('btn-solicitar');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Enviando...';
+  try{
+    await fetch(API+'/cadastro/solicitar',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({igreja_nome:iNome,igreja_endereco:iEnd,igreja_logo:logoBase64Cad,gestor_nome:nome,gestor_email:email,gestor_senha:senha})
+    }).then(async r=>{
+      const j=await r.json();
+      if(!r.ok)throw new Error(j.detail||'Erro');
+    });
+    document.getElementById('cad-form-wrap').style.display='none';
+    document.getElementById('cad-sucesso-wrap').style.display='block';
+  }catch(e){
+    const el=document.getElementById('cad-geral');
+    el.textContent=e.message;el.style.display='block';
+  }
+  btn.disabled=false;btn.textContent='Enviar solicitação';
+}
+
+// ── LOGIN ──────────────────────────────────────────────────────
+async function fazerLogin(){
+  const email=document.getElementById('l-email').value.trim();
+  const senha=document.getElementById('l-senha').value;
+  clrErrs('l-email-err','l-senha-err');
+  document.getElementById('l-geral').style.display='none';
+  if(!email){showErr('l-email-err','Informe o e-mail');return;}
+  if(!senha){showErr('l-senha-err','Informe a senha');return;}
+  const btn=document.getElementById('btn-login');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Entrando...';
+  try{
+    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,senha})});
+    const json=await res.json();
+    if(!res.ok){
+      const el=document.getElementById('l-geral');
+      el.textContent=json.detail||'Credenciais inválidas';el.style.display='block';
+      btn.disabled=false;btn.textContent='Entrar';return;
+    }
+    token=json.token;localStorage.setItem('praizy_token',token);
+    eu=json.integrante;minhaIgreja={...json.igreja,id:eu.igreja_id};
+    entrarNoApp();
+  }catch(e){
+    const el=document.getElementById('l-geral');el.textContent='Erro de conexão. Tente novamente.';el.style.display='block';
+  }
+  btn.disabled=false;btn.textContent='Entrar';
+}
+
+function entrarNoApp(){
+  document.getElementById('page-login').style.display='none';
+  document.getElementById('page-cadastro').style.display='none';
+  document.getElementById('app').style.display='block';
+  // header user chip
+  const av=document.getElementById('u-av');
+  if(eu.foto)av.innerHTML=`<img src="${eu.foto}" alt=""/>`;else av.textContent=ini(eu.nome);
+  document.getElementById('u-nm').textContent=eu.nome.split(' ')[0];
+  const nb=document.getElementById('u-nivel');
+  nb.textContent=nivelLabel(eu.nivel);nb.className='nbadge '+nivelClass(eu.nivel);
+  document.getElementById('header-church-name').textContent='— '+(minhaIgreja?.nome||'');
+  // permissões
+  const pGer=podeGerInt();
+  document.getElementById('btn-novo-int').style.display=pGer?'':'none';
+  document.getElementById('readonly-int').style.display=pGer?'none':'block';
+  document.getElementById('btn-nova-esc').style.display=podeCriarEsc()?'':'none';
+  document.getElementById('readonly-esc').style.display=podeCriarEsc()?'none':'block';
+  if(pGer)document.getElementById('nav-igreja').style.display='';
+  carregarIntegrantes();carregarEscalas();
+}
+
+function doLogout(){
+  token=null;eu=null;minhaIgreja=null;integrantes=[];
+  localStorage.removeItem('praizy_token');
+  document.getElementById('app').style.display='none';
+  document.getElementById('page-login').style.display='flex';
+  document.getElementById('l-email').value='';document.getElementById('l-senha').value='';
+}
+async function fazerLogout(){try{await api('POST','/auth/logout');}catch(e){}doLogout();}
+
+async function verificarSessao(){
+  if(!token){document.getElementById('page-login').style.display='flex';return;}
+  try{
+    const data=await api('GET','/auth/me');
+    if(data){
+      eu=data;
+      const ig=await api('GET','/minha-igreja');
+      minhaIgreja=ig;entrarNoApp();
+    }else{document.getElementById('page-login').style.display='flex';}
+  }catch(e){document.getElementById('page-login').style.display='flex';}
+}
+
+document.getElementById('l-senha').addEventListener('keydown',e=>{if(e.key==='Enter')fazerLogin();});
+document.getElementById('l-email').addEventListener('keydown',e=>{if(e.key==='Enter')fazerLogin();});
+
+// ── TABS ───────────────────────────────────────────────────────
+function showTab(t,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  btn.classList.add('active');
+  if(t==='subs')renderSubs();
+  if(t==='igreja')renderIgreja();
+}
+
+// ── INTEGRANTES ────────────────────────────────────────────────
+async function carregarIntegrantes(){
+  try{integrantes=await api('GET','/integrantes')||[];renderIntegrantes();renderSubsSelect();}
+  catch(e){document.getElementById('lista-int').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div>Erro ao carregar.</div>';}
+}
+
+function renderIntegrantes(){
+  const el=document.getElementById('lista-int');
+  if(!integrantes.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Nenhum integrante cadastrado.</div>';return;}
+  const pGer=podeGerInt();
+  el.innerHTML=integrantes.map(m=>`
+    <div class="member-card">
+      <div class="avatar">${m.foto?`<img src="${m.foto}" alt=""/>`:ini(m.nome)}</div>
+      <div class="member-info">
+        <div class="member-name">${m.nome}<span class="nbadge ${nivelClass(m.nivel)}">${nivelLabel(m.nivel)}</span></div>
+        <div class="member-meta">
+          ${m.email?`<span>✉️ ${m.email}</span>`:''}
+          ${m.whatsapp?`<span>📱 ${m.whatsapp}</span>`:''}
+        </div>
+        <div class="member-badges">${m.funcoes.map(f=>`<span class="badge badge-${rc(f)}">${f}</span>`).join('')}</div>
+      </div>
+      ${pGer?`<div class="member-actions">
+        <button class="btn btn-edit btn-sm" onclick="abreModalEditInt(${m.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deletarInt(${m.id})">🗑️</button>
+      </div>`:''}
+    </div>`).join('');
+}
+
+function resetModalInt(){
+  editandoIntId=null;funcoesTmpInt=[];fotoBase64Int=null;
+  ['int-nome','int-email','int-whatsapp','int-senha','int-senha2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('int-nivel').value='voluntario';
+  document.getElementById('int-foto-inp').value='';
+  document.getElementById('int-foto-wrap').innerHTML='<div style="font-size:24px;opacity:0.4">📷</div><div style="font-size:12px;color:var(--text-muted)">Clique para adicionar foto</div>';
+  document.getElementById('int-funcoes-tags').innerHTML='';
+  document.getElementById('int-senha-hint').textContent='(mín. 6 caracteres)';
+  clrErrs('int-nome-err','int-email-err','int-senha-err','int-senha2-err');
+}
+
+function abreModalNovoInt(){
+  resetModalInt();
+  document.getElementById('modal-int-titulo').textContent='Novo integrante';
+  document.getElementById('btn-salvar-int').textContent='Cadastrar';
+  document.getElementById('modal-int').style.display='flex';
+  setTimeout(()=>document.getElementById('int-nome').focus(),100);
+}
+
+function abreModalEditInt(id){
+  const m=integrantes.find(x=>x.id===id);if(!m)return;
+  resetModalInt();editandoIntId=id;funcoesTmpInt=[...m.funcoes];
+  document.getElementById('int-nome').value=m.nome;
+  document.getElementById('int-email').value=m.email;
+  document.getElementById('int-whatsapp').value=m.whatsapp||'';
+  document.getElementById('int-nivel').value=m.nivel;
+  document.getElementById('int-senha-hint').textContent='(deixe em branco para manter)';
+  if(m.foto)document.getElementById('int-foto-wrap').innerHTML=`<img src="${m.foto}" class="foto-preview-img" alt=""/>`;
+  renderFuncoesInt();
+  document.getElementById('modal-int-titulo').textContent='Editar integrante';
+  document.getElementById('btn-salvar-int').textContent='Salvar alterações';
+  document.getElementById('modal-int').style.display='flex';
+}
+
+function fechaModalInt(e){if(e.target===document.getElementById('modal-int'))fechaModalIntF();}
+function fechaModalIntF(){document.getElementById('modal-int').style.display='none';}
+
+function previewFotoInt(){
+  const f=document.getElementById('int-foto-inp').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{fotoBase64Int=e.target.result;document.getElementById('int-foto-wrap').innerHTML=`<img src="${fotoBase64Int}" class="foto-preview-img" alt=""/>`;};
+  r.readAsDataURL(f);
+}
+
+function addFuncaoInt(){
+  const i=document.getElementById('int-funcao');const v=i.value.trim();
+  if(!v)return;if(!funcoesTmpInt.includes(v))funcoesTmpInt.push(v);
+  i.value='';i.focus();renderFuncoesInt();
+}
+document.getElementById('int-funcao').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addFuncaoInt();}});
+function renderFuncoesInt(){
+  document.getElementById('int-funcoes-tags').innerHTML=
+    funcoesTmpInt.map((f,i)=>`<span class="badge badge-${rc(f)}">${f}<span class="badge-rm" onclick="funcoesTmpInt.splice(${i},1);renderFuncoesInt()">×</span></span>`).join('');
+}
+
+async function salvarInt(){
+  const fI=document.getElementById('int-funcao').value.trim();
+  if(fI&&!funcoesTmpInt.includes(fI)){funcoesTmpInt.push(fI);document.getElementById('int-funcao').value='';}
+  const nome=document.getElementById('int-nome').value.trim();
+  const email=document.getElementById('int-email').value.trim();
+  const senha=document.getElementById('int-senha').value;
+  const senha2=document.getElementById('int-senha2').value;
+  const nivel=document.getElementById('int-nivel').value;
+  const whatsapp=document.getElementById('int-whatsapp').value.trim();
+  clrErrs('int-nome-err','int-email-err','int-senha-err','int-senha2-err');
+  let ok=true;
+  if(!nome){showErr('int-nome-err','Informe o nome');ok=false;}
+  if(!email||!email.includes('@')){showErr('int-email-err','E-mail inválido');ok=false;}
+  if(!editandoIntId){
+    if(!senha||senha.length<6){showErr('int-senha-err','Mínimo 6 caracteres');ok=false;}
+    if(senha!==senha2){showErr('int-senha2-err','Senhas não coincidem');ok=false;}
+  }else if(senha){
+    if(senha.length<6){showErr('int-senha-err','Mínimo 6 caracteres');ok=false;}
+    if(senha!==senha2){showErr('int-senha2-err','Senhas não coincidem');ok=false;}
+  }
+  if(!ok)return;
+  const btn=document.getElementById('btn-salvar-int');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
+  try{
+    const p={nome,email,nivel,whatsapp:whatsapp||null,funcoes:funcoesTmpInt};
+    if(fotoBase64Int)p.foto=fotoBase64Int;
+    if(!editandoIntId){p.senha=senha;await api('POST','/integrantes',p);toast('✓ Integrante cadastrado!');}
+    else{if(senha)p.senha=senha;await api('PUT',`/integrantes/${editandoIntId}`,p);toast('✓ Atualizado!');}
+    fechaModalIntF();await carregarIntegrantes();
+  }catch(e){toast(e.message,true);}
+  btn.disabled=false;btn.textContent=editandoIntId?'Salvar alterações':'Cadastrar';
+}
+
+async function deletarInt(id){
+  if(!confirm('Remover este integrante?'))return;
+  try{await api('DELETE',`/integrantes/${id}`);toast('Removido.');await carregarIntegrantes();}
+  catch(e){toast(e.message,true);}
+}
+
+// ── ESCALAS ────────────────────────────────────────────────────
+function getAllFuncoes(){const s=new Set();integrantes.forEach(m=>m.funcoes.forEach(f=>s.add(f)));return[...s].sort();}
+function getIntF(f){return integrantes.filter(m=>m.funcoes.includes(f));}
+
+function renderSlotsModal(){
+  const el=document.getElementById('esc-slots-wrap');
+  if(!integrantes.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Cadastre integrantes primeiro.</div>';return;}
+  el.innerHTML=getAllFuncoes().map(f=>`
+    <div class="slot-row">
+      <div class="slot-label"><span class="badge badge-${rc(f)}" style="font-size:11px">${f}</span></div>
+      <select class="form-select" data-funcao="${f}" style="flex:1">
+        <option value="">— Não escalar —</option>
+        ${getIntF(f).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('')}
+      </select>
+    </div>`).join('');
+}
+
+function abreModalNovaEsc(){
+  editandoEscId=null;
+  document.getElementById('modal-esc-titulo').textContent='Nova escala';
+  document.getElementById('btn-salvar-esc').textContent='Salvar escala';
+  document.getElementById('esc-data').value='';
+  document.getElementById('esc-evento').value='';
+  renderSlotsModal();
+  document.getElementById('modal-esc').style.display='flex';
+}
+
+async function abreModalEditEsc(id){
+  editandoEscId=id;
+  document.getElementById('modal-esc-titulo').textContent='Editar escala';
+  document.getElementById('btn-salvar-esc').textContent='Salvar alterações';
+  document.getElementById('esc-slots-wrap').innerHTML='<div class="loading-state"><span class="spinner"></span> Carregando...</div>';
+  document.getElementById('modal-esc').style.display='flex';
+  try{
+    const escalas=await api('GET','/escalas');
+    const e=escalas.find(x=>x.id===id);if(!e){fechaModalEscF();return;}
+    document.getElementById('esc-data').value=e.data;
+    document.getElementById('esc-evento').value=e.evento||'';
+    renderSlotsModal();
+    e.slots.forEach(s=>{
+      const sel=document.querySelector(`#esc-slots-wrap select[data-funcao="${CSS.escape(s.funcao)}"]`);
+      if(sel&&s.integrante_id)sel.value=s.integrante_id;
+    });
+  }catch(ex){toast(ex.message,true);fechaModalEscF();}
+}
+
+function fechaModalEsc(e){if(e.target===document.getElementById('modal-esc'))fechaModalEscF();}
+function fechaModalEscF(){document.getElementById('modal-esc').style.display='none';editandoEscId=null;}
+
+async function salvarEscala(){
+  const data=document.getElementById('esc-data').value;
+  const evento=document.getElementById('esc-evento').value.trim();
+  if(!data){toast('Informe a data.',true);return;}
+  const slots=[];
+  document.querySelectorAll('#esc-slots-wrap select').forEach(sel=>{
+    if(sel.value)slots.push({integrante_id:parseInt(sel.value),funcao:sel.dataset.funcao});
+  });
+  if(!slots.length){toast('Escale ao menos um integrante.',true);return;}
+  const btn=document.getElementById('btn-salvar-esc');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
+  try{
+    if(!editandoEscId){await api('POST','/escalas',{data,evento,slots});toast('✓ Escala criada! Notificações enviadas.');}
+    else{await api('PUT',`/escalas/${editandoEscId}`,{data,evento,slots});toast('✓ Escala atualizada!');}
+    fechaModalEscF();await carregarEscalas();
+  }catch(e){toast(e.message,true);}
+  btn.disabled=false;btn.textContent=editandoEscId?'Salvar alterações':'Salvar escala';
+}
+
+async function carregarEscalas(){
+  const el=document.getElementById('lista-esc');
+  try{
+    const escalas=await api('GET','/escalas')||[];
+    if(!escalas.length){el.innerHTML='<div class="empty"><div class="empty-icon">📅</div>Nenhuma escala ainda.</div>';return;}
+    const pEdit=podeEditarEsc(),pDel=podeCriarEsc();
+    el.innerHTML=escalas.map(e=>`
+      <div class="escala-card">
+        <div class="escala-head">
+          <span class="escala-date">${fmtD(e.data)}</span>
+          ${e.evento?`<span class="escala-evento">${e.evento}</span>`:''}
+          <div class="escala-actions">
+            ${pEdit?`<button class="btn btn-edit btn-sm" onclick="abreModalEditEsc(${e.id})">✏️ Editar</button>`:''}
+            ${pDel?`<button class="btn btn-danger btn-sm" onclick="deletarEsc(${e.id})">Remover</button>`:''}
+          </div>
+        </div>
+        <div class="escala-grid">
+          ${e.slots.map(s=>`
+            <div class="escala-slot-item">
+              <div class="slot-avatar">${s.integrante_foto?`<img src="${s.integrante_foto}" alt=""/>`:ini(s.integrante_nome||'?')}</div>
+              <div><div class="slot-role">${s.funcao}</div><div class="slot-name">${s.integrante_nome||'—'}</div></div>
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+  }catch(e){el.innerHTML='<div class="empty"><div class="empty-icon">⚠️</div>Erro ao carregar escalas.</div>';}
+}
+
+async function deletarEsc(id){
+  if(!confirm('Remover esta escala?'))return;
+  try{await api('DELETE',`/escalas/${id}`);toast('Escala removida.');await carregarEscalas();}
+  catch(e){toast(e.message,true);}
+}
+
+// ── SUBSTITUIÇÕES ──────────────────────────────────────────────
+function renderSubsSelect(){
+  const sel=document.getElementById('subs-select');const cur=sel.value;
+  sel.innerHTML='<option value="">— Escolha —</option>'+
+    integrantes.map(m=>`<option value="${m.id}" ${m.id==cur?'selected':''}>${m.nome}</option>`).join('');
+}
+async function buscarSubs(){
+  const id=document.getElementById('subs-select').value;
+  const el=document.getElementById('subs-result');
+  if(!id){el.innerHTML='';return;}
+  el.innerHTML='<div class="loading-state"><span class="spinner"></span></div>';
+  try{
+    const data=await api('GET',`/substitutos/${id}`)||[];
+    el.innerHTML=data.map(item=>`
+      <div class="subs-card">
+        <div class="subs-role-head"><span class="badge badge-${rc(item.funcao)}" style="font-size:11px">${item.funcao}</span></div>
+        <div class="subs-names">
+          ${item.substitutos.length?item.substitutos.map(s=>`<span class="subs-name">${s.nome}</span>`).join(''):'<span style="font-size:13px;color:var(--text-muted);font-style:italic">Nenhum substituto disponível</span>'}
+        </div>
+      </div>`).join('');
+  }catch(e){el.innerHTML='';}
+}
+function renderSubs(){
+  renderSubsSelect();
+  const el=document.getElementById('all-subs');
+  const grupos=getAllFuncoes().filter(f=>getIntF(f).length>1);
+  if(!grupos.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔄</div>Nenhuma função tem mais de um integrante.</div>';return;}
+  el.innerHTML=grupos.map(f=>{
+    const ms=getIntF(f);
+    return`<div class="subs-card">
+      <div class="subs-role-head"><span class="badge badge-${rc(f)}" style="font-size:11px">${f}</span><span style="font-size:11px;color:var(--text-muted)">${ms.length} integrantes</span></div>
+      <div class="subs-names">${ms.map(m=>`<span class="subs-name">${m.nome}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── MINHA IGREJA ───────────────────────────────────────────────
+async function renderIgreja(){
+  const el=document.getElementById('igreja-info-card');
+  try{
+    const ig=await api('GET','/minha-igreja');
+    if(!ig)return;
+    minhaIgreja=ig;
+    el.innerHTML=`
+      <div class="card-label">Informações da Igreja</div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <div class="church-logo" style="width:72px;height:72px;border-radius:var(--radius-lg)">
+          ${ig.logo?`<img src="${ig.logo}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg)"/>`:` <span style="font-size:28px">⛪</span>`}
+        </div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:700">${ig.nome}</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:4px">📍 ${ig.endereco||'Endereço não informado'}</div>
+        </div>
+      </div>
+      <div class="card-label">Editar informações</div>
+      <div class="form-group">
+        <label class="form-label">Logo</label>
+        <div class="logo-upload" onclick="document.getElementById('ig-logo-inp').click()">
+          <input type="file" id="ig-logo-inp" accept="image/*" onchange="previewLogoIg()" style="display:none"/>
+          <div id="ig-logo-wrap">
+            ${ig.logo?`<img src="${ig.logo}" class="logo-preview" alt="logo"/>`:'<div style="font-size:28px;opacity:0.4">⛪</div><div style="font-size:12px;color:var(--text-muted)">Clique para trocar o logo</div>'}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nome da Igreja</label>
+        <input class="form-input" id="ig-nome" value="${ig.nome}" type="text"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Endereço</label>
+        <input class="form-input" id="ig-end" value="${ig.endereco||''}" type="text" placeholder="Rua, número, bairro, cidade"/>
+      </div>
+      <button class="btn btn-primary" id="btn-salvar-ig" onclick="salvarIgreja()">Salvar informações</button>`;
+  }catch(e){el.innerHTML='<div class="empty"><div class="empty-icon">⚠️</div>Erro ao carregar.</div>';}
+}
+
+let logoBase64Ig=null;
+function previewLogoIg(){
+  const f=document.getElementById('ig-logo-inp').files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{logoBase64Ig=e.target.result;document.getElementById('ig-logo-wrap').innerHTML=`<img src="${logoBase64Ig}" class="logo-preview" alt=""/>`;};
+  r.readAsDataURL(f);
+}
+
+async function salvarIgreja(){
+  const nome=document.getElementById('ig-nome').value.trim();
+  const end=document.getElementById('ig-end').value.trim();
+  if(!nome){toast('Informe o nome da igreja.',true);return;}
+  const btn=document.getElementById('btn-salvar-ig');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Salvando...';
+  try{
+    await api('PUT','/minha-igreja',{nome,endereco:end,logo:logoBase64Ig||minhaIgreja?.logo});
+    toast('✓ Igreja atualizada!');
+    document.getElementById('header-church-name').textContent='— '+nome;
+    await renderIgreja();logoBase64Ig=null;
+  }catch(e){toast(e.message,true);}
+  btn.disabled=false;btn.textContent='Salvar informações';
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+verificarSessao();
+</script>
+</body>
+</html>
